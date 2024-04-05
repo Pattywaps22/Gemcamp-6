@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <% nav_links = { 'HOME' => home_path, 'ABOUT' => about_path, 'CONTACT' => contact_path, 'POST LIST' => posts_path, 'CREATE POST' => new_post_path } %>
+        <% nav_links.each do |title, path| %>
+          <li class="nav-item">
+            <%= link_to title, path, class: 'navbar-brand' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
