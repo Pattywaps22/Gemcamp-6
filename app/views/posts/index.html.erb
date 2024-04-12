@@ -1,28 +1,39 @@
-<div class="post-list-header">
-  <h1 class="post-list-title">Post List</h1>
-</div>
+<div class="post-list-container">
+  <h1>Post List</h1>
 
-<table class="table table-striped">
-  <thead class="table-dark">
-  <tr>
-    <th scope="col">Title</th>
-    <th scope="col">Creation Time</th>
-    <th scope="col">Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @posts.each do |post| %>
-    <tr>
-      <td><%= post.title %></td>
-      <td><%= post.created_at.strftime('%B %d, %Y') %></td>
-      <td>
-        <%= link_to 'Detail', post_path(post), class: 'btn btn-primary btn-sm' %>
-        <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-warning btn-sm' %>
-        <%= button_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
-        <%= link_to 'Comments', post_comments_path(post), class: 'btn btn-primary btn-sm' %>
-        <%= link_to 'New Comment', new_post_comment_path(post), class: 'btn btn-success btn-sm' %>
-      </td>
-    </tr>
+  <%= form_tag(posts_path, method: "get", class: "post-filter-form") do %>
+    <div class="form-group">
+      <%= label_tag :order_by, "Sort By" %><br>
+      <%= radio_button_tag :order_by, "ASC", params[:order_by] == "ASC" %>
+      <%= label_tag :order_by_asc, "Ascending" %>
+      <%= radio_button_tag :order_by, "DESC", params[:order_by] == "DESC" %>
+      <%= label_tag :order_by_desc, "Descending" %>
+    </div>
+    <%= submit_tag "Filter", class: "btn btn-primary" %>
   <% end %>
-  </tbody>
-</table>
+
+  <table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Creation Time</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.created_at.strftime('%B %d, %Y') %></td>
+        <td>
+          <%= link_to 'Detail', post_path(post), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-warning btn-sm' %>
+          <%= button_to 'Delete', post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+          <%= link_to 'Comments', post_comments_path(post), class: 'btn btn-primary btn-sm' %>
+          <%= link_to 'New Comment', new_post_comment_path(post), class: 'btn btn-success btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   def index
     @posts = Post.all
+    @posts = @posts.order(created_at: params[:order_by]) if params[:order_by].present?
   end
 
   def new
