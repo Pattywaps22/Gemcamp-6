@@ -17,6 +17,7 @@
     <tr>
       <th scope="col">Title</th>
       <th scope="col">Creation Time</th>
+      <th scope="col">Category</th>
       <th scope="col">Actions</th>
     </tr>
     </thead>
@@ -25,6 +26,7 @@
       <tr>
         <td><%= post.title %></td>
         <td><%= post.created_at.strftime('%B %d, %Y') %></td>
+        <td><%= post.categories.pluck(:name).join(', ') %></td>
         <td>
           <%= link_to 'Detail', post_path(post), class: 'btn btn-primary btn-sm' %>
           <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-warning btn-sm' %>
