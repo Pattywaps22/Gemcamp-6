@@ -7,8 +7,19 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 100.times do
-  Post.create!(
-    title: Faker::Lorem.words(number: 3).join(' '), # Generates a title with only letters
-    content: Faker::Lorem.paragraphs(number: 3).join('\n\n') # Generates content with only letters
-  )
+  begin
+    post = Post.create!(
+      title: Faker::Lorem.words(number: 5).join(' '),
+      content: Faker::Lorem.paragraphs(number: 50).join('\n\n')
+    )
+
+    num_categories = rand(1..4)
+    categories = ['Technology', 'Travel', 'Lifestyle', 'Fashion', 'Food'].sample(num_categories)
+
+    categories.each do |category_name|
+      post.categories.create!(name: category_name)
+    end
+  rescue StandardError => e
+    puts "Error creating seed: #{e.message}"
+  end
 end
