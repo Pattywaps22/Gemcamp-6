@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+
   def index
     @posts = Post.all
     @posts = @posts.order(created_at: params[:order_by]) if params[:order_by].present?
@@ -12,8 +13,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
+      flash[:notice] = 'Post created successfully'
       redirect_to posts_path
     else
+      flash.now[:alert] = 'Post create failed'
       render :new, status: :unprocessable_entity
     end
   end
