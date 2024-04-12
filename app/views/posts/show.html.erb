@@ -1,5 +1,44 @@
-<h1>show post id: <%= @post.id %></h1>
-<ul>
-  <li><%= @post.title %></li>
-  <li><%= @post.content %></li>
-</ul>
+<style>
+    .post-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #eaeaea;
+        border-radius: 8px;
+        background-color: #ffffff;
+    }
+
+    .post-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .post-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333333;
+    }
+
+    .post-date {
+        font-size: 1rem;
+        color: #666666;
+    }
+
+    .post-content {
+        line-height: 1.6;
+    }
+
+    .post-content p {
+        margin-bottom: 15px;
+    }
+</style>
+
+<section class="post-container">
+  <div class="post-header">
+    <h1 class="post-title"><%= @post.title %></h1>
+    <p class="post-date"><%= @post.created_at.strftime('%B %d, %Y') %></p>
+  </div>
+  <div class="post-content">
+    <p><%= @post.content %></p>
+  </div>
+</section>

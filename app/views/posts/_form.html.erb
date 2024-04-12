@@ -1,18 +1,31 @@
-<%= form_with model: post do |form| %>
-  <% if post.errors.any? %>
-    <ul>
-      <% post.errors.each do |error| %>
-        <li><%= error.full_message %></li>
+<% if post.errors.any? %>
+  <div class="alert alert-danger" role="alert">
+    <ul class="error-list">
+      <% post.errors.full_messages.each do |error_message| %>
+        <li><%= error_message %></li>
       <% end %>
     </ul>
-  <% end %>
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
   </div>
-  <div>
-    <%= form.label :content %>
-    <%= form.text_field :content %>
+<% end %>
+
+<%= form_with model: post do |form| %>
+  <div class="mb-3">
+    <%= form.label :title, class: 'form-label' %>
+    <%= form.text_field :title, class: "form-control #{'is-invalid' if post.errors.has_key?(:title)}" %>
+    <% if post.errors.has_key?(:title) %>
+      <div class="invalid-feedback">
+        <%= post.errors.full_messages_for(:title).join(', ') %>
+      </div>
+    <% end %>
   </div>
-  <%= form.submit %>
+  <div class="mb-3">
+    <%= form.label :content, class: 'form-label' %>
+    <%= form.text_area :content, class: "form-control #{'is-invalid' if post.errors.has_key?(:content)}" %>
+    <% if post.errors.has_key?(:content) %>
+      <div class="invalid-feedback">
+        <%= post.errors.full_messages_for(:content).join(', ') %>
+      </div>
+    <% end %>
+  </div>
+  <%= form.submit 'Save', class: 'btn btn-primary' %>
 <% end %>
