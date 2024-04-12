@@ -1,12 +1,11 @@
 <div class="post-list-container">
   <h1>Post List</h1>
 
-  <%= form_tag(posts_path, method: "get", class: "post-filter-form") do %>
+  <%= form_tag(posts_path, method: "get", id: "sort-form") do %>
     <div class="form-group">
       <%= label_tag :order_by, "Sort By" %><br>
-      <%= select_tag :order_by, options_for_select([["Ascending", "ASC"], ["Descending", "DESC"]], params[:order_by]), class: "form-control" %>
+      <%= select_tag :order_by, options_for_select([["Ascending", "ASC"], ["Descending", "DESC"]], params[:order_by]), class: "form-control", onchange: "document.getElementById('sort-form').submit();" %>
     </div>
-    <%= submit_tag "Filter", class: "btn btn-primary" %>
   <% end %>
 
   <table class="table table-striped">
@@ -19,7 +18,8 @@
     </tr>
     </thead>
     <tbody>
-    <% @posts.each do |post| %>
+    <% sorted_posts = @posts.order(created_at: params[:order_by] == "DESC" ? :desc : :asc) %>
+    <% sorted_posts.each do |post| %>
       <tr>
         <td><%= post.title %></td>
         <td><%= post.created_at.strftime('%B %d, %Y') %></td>
