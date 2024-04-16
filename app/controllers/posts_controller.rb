@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.includes(:categories).all
+    @posts = Post.includes(:categories).page(params[:page]).per(15)
     @posts = @posts.order(created_at: params[:order_by]) if params[:order_by].present?
   end
 
