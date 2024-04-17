@@ -17,7 +17,8 @@ class CommentsController < ApplicationController
     @comment.user = current_user
     if @comment.save
       flash[:notice] = 'Comment created successfully'
-      redirect_to post_comments_path(@post)
+      redirect_to post_path(@post)
+    elsif render 'posts/show'
     else
       render :new
     end
