@@ -24,7 +24,11 @@ class PostsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+      @post = Post.find(params[:id])
+      @comment = Comment.new
+      @comments = @post.comments.page(params[:page]).per(7)
+  end
 
   def edit; end
 
